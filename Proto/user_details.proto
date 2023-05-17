@@ -1,0 +1,27 @@
+syntax="proto3";
+
+option go_package = "./pb";
+
+package proto;
+
+message User {
+    int32 id = 1;
+    string name = 2;
+    string country = 3;
+    int64 hashkey = 4;
+}
+message Response{
+    bool Status = 1;
+}
+message GetUserData{
+    int64 key = 1;
+    string countryname = 2;
+}
+message SavedRecords {
+    map<uint32, User> records = 1;
+}
+
+service CassandraService{
+    rpc SaveData(User) returns (Response){};
+    rpc GetData(GetUserData) returns (SavedRecords) {};
+}
